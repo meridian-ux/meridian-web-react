@@ -105,31 +105,31 @@ export const FIXTURES: Fixture[] = [
               label: "Navigation groups",
               requestField: "nav.groups",
               kind: {
-                case: "repeatedField",
+                case: "repeated",
                 value: create(RepeatedFieldSchema, {
-                  item: create(FormFieldSchema, {
-                    fieldId: "group",
-                    kind: {
-                      case: "nested",
-                      value: create(NestedFormSchema, {
-                        fields: [
-                          create(FormFieldSchema, {
-                            fieldId: "label",
-                            label: "Label",
-                            requestField: "label",
-                            kind: {
-                              case: "text",
-                              value: create(TextInputSchema, {}),
-                            },
-                          }),
-                          create(FormFieldSchema, {
-                            fieldId: "kinds",
-                            label: "Kinds",
-                            requestField: "kinds",
-                            kind: {
-                              case: "repeatedField",
-                              value: create(RepeatedFieldSchema, {
-                                item: create(FormFieldSchema, {
+                  element: {
+                    case: "object",
+                    value: create(NestedFormSchema, {
+                      fields: [
+                        create(FormFieldSchema, {
+                          fieldId: "label",
+                          label: "Label",
+                          requestField: "label",
+                          kind: {
+                            case: "text",
+                            value: create(TextInputSchema, {}),
+                          },
+                        }),
+                        create(FormFieldSchema, {
+                          fieldId: "kinds",
+                          label: "Kinds",
+                          requestField: "kinds",
+                          kind: {
+                            case: "repeated",
+                            value: create(RepeatedFieldSchema, {
+                              element: {
+                                case: "scalar",
+                                value: create(FormFieldSchema, {
                                   fieldId: "kind",
                                   requestField: "kind",
                                   kind: {
@@ -137,14 +137,14 @@ export const FIXTURES: Fixture[] = [
                                     value: create(TextInputSchema, {}),
                                   },
                                 }),
-                                addLabel: "Add kind",
-                              }),
-                            },
-                          }),
-                        ],
-                      }),
-                    },
-                  }),
+                              },
+                              addLabel: "Add kind",
+                            }),
+                          },
+                        }),
+                      ],
+                    }),
+                  },
                   addLabel: "Add section",
                 }),
               },

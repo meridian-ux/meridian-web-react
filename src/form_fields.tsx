@@ -198,7 +198,7 @@ export function NestedFormFields({
 // ── FormFieldRow ───────────────────────────────────────────────────────────────
 
 /**
- * Renders a single FormField (any kind: scalar / nested / repeatedField).
+ * Renders a single FormField (any kind: scalar / nested / repeated).
  * `pathPrefix` is the dot-separated parent path; `field.requestField` is appended
  * to build the leaf name attribute (e.g. `groups[0].label`).
  */
@@ -236,7 +236,7 @@ export function FormFieldRow({
     );
   }
 
-  if (kind.case === "repeatedField") {
+  if (kind.case === "repeated") {
     return (
       <div className={c.field}>
         {field.label && <span className={c.fieldLabel}>{field.label}</span>}
@@ -328,7 +328,7 @@ export function RepeatedFieldControl({
     });
   }
 
-  const item = spec.item;
+  const element = spec.element;
   const addLabel = spec.addLabel || "Add";
   const isEdit = mode === 2;
 
@@ -338,22 +338,21 @@ export function RepeatedFieldControl({
         {rows.map((row, idx) => (
           <li key={row.id} className={c.repeatedRow}>
             <div className={c.repeatedRowBody}>
-              {item &&
-                (item.kind.case === "nested" ? (
-                  <NestedFormFields
-                    c={c}
-                    nested={item.kind.value}
-                    mode={mode}
-                    pathPrefix={`${namePath}[${idx}]`}
-                  />
-                ) : (
-                  <ScalarInput
-                    c={c}
-                    field={item}
-                    mode={mode}
-                    name={`${namePath}[${idx}]`}
-                  />
-                ))}
+              {element.case === "object" ? (
+                <NestedFormFields
+                  c={c}
+                  nested={element.value}
+                  mode={mode}
+                  pathPrefix={`${namePath}[${idx}]`}
+                />
+              ) : element.case === "scalar" ? (
+                <ScalarInput
+                  c={c}
+                  field={element.value}
+                  mode={mode}
+                  name={`${namePath}[${idx}]`}
+                />
+              ) : null}
             </div>
             {isEdit && (
               <div className={c.repeatedRowControls}>

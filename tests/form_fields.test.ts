@@ -174,13 +174,16 @@ describe("RepeatedFieldControl — initial render (htmlKit, EDIT mode)", () => {
       label: "Tags",
       requestField: "tags",
       kind: {
-        case: "repeatedField",
+        case: "repeated",
         value: create(RepeatedFieldSchema, {
-          item: create(FormFieldSchema, {
-            fieldId: "tag",
-            requestField: "tag",
-            kind: { case: "text", value: create(TextInputSchema, {}) },
-          }),
+          element: {
+            case: "scalar",
+            value: create(FormFieldSchema, {
+              fieldId: "tag",
+              requestField: "tag",
+              kind: { case: "text", value: create(TextInputSchema, {}) },
+            }),
+          },
           addLabel: "Add tag",
         }),
       },
@@ -196,13 +199,16 @@ describe("RepeatedFieldControl — initial render (htmlKit, EDIT mode)", () => {
       label: "Tags",
       requestField: "tags",
       kind: {
-        case: "repeatedField",
+        case: "repeated",
         value: create(RepeatedFieldSchema, {
-          item: create(FormFieldSchema, {
-            fieldId: "tag",
-            requestField: "tag",
-            kind: { case: "text", value: create(TextInputSchema, {}) },
-          }),
+          element: {
+            case: "scalar",
+            value: create(FormFieldSchema, {
+              fieldId: "tag",
+              requestField: "tag",
+              kind: { case: "text", value: create(TextInputSchema, {}) },
+            }),
+          },
           minItems: 2,
           addLabel: "Add tag",
         }),
@@ -222,13 +228,16 @@ describe("RepeatedFieldControl — initial render (htmlKit, EDIT mode)", () => {
       label: "Tags",
       requestField: "tags",
       kind: {
-        case: "repeatedField",
+        case: "repeated",
         value: create(RepeatedFieldSchema, {
-          item: create(FormFieldSchema, {
-            fieldId: "tag",
-            requestField: "tag",
-            kind: { case: "text", value: create(TextInputSchema, {}) },
-          }),
+          element: {
+            case: "scalar",
+            value: create(FormFieldSchema, {
+              fieldId: "tag",
+              requestField: "tag",
+              kind: { case: "text", value: create(TextInputSchema, {}) },
+            }),
+          },
           minItems: 1,
           addLabel: "Add tag",
         }),
@@ -240,30 +249,27 @@ describe("RepeatedFieldControl — initial render (htmlKit, EDIT mode)", () => {
     expect(html).not.toContain('aria-label="Move up"');
   });
 
-  it("renders nested-item rows with per-row sub-field names", () => {
+  it("renders object-element rows with per-row sub-field names", () => {
     const field = create(FormFieldSchema, {
       fieldId: "groups",
       label: "Groups",
       requestField: "groups",
       kind: {
-        case: "repeatedField",
+        case: "repeated",
         value: create(RepeatedFieldSchema, {
-          item: create(FormFieldSchema, {
-            fieldId: "group",
-            kind: {
-              case: "nested",
-              value: create(NestedFormSchema, {
-                fields: [
-                  create(FormFieldSchema, {
-                    fieldId: "name",
-                    label: "Name",
-                    requestField: "name",
-                    kind: { case: "text", value: create(TextInputSchema, {}) },
-                  }),
-                ],
-              }),
-            },
-          }),
+          element: {
+            case: "object",
+            value: create(NestedFormSchema, {
+              fields: [
+                create(FormFieldSchema, {
+                  fieldId: "name",
+                  label: "Name",
+                  requestField: "name",
+                  kind: { case: "text", value: create(TextInputSchema, {}) },
+                }),
+              ],
+            }),
+          },
           minItems: 1,
           addLabel: "Add group",
         }),
@@ -281,13 +287,16 @@ describe("RepeatedFieldControl — initial render (htmlKit, EDIT mode)", () => {
       label: "Slots",
       requestField: "slots",
       kind: {
-        case: "repeatedField",
+        case: "repeated",
         value: create(RepeatedFieldSchema, {
-          item: create(FormFieldSchema, {
-            fieldId: "slot",
-            requestField: "slot",
-            kind: { case: "text", value: create(TextInputSchema, {}) },
-          }),
+          element: {
+            case: "scalar",
+            value: create(FormFieldSchema, {
+              fieldId: "slot",
+              requestField: "slot",
+              kind: { case: "text", value: create(TextInputSchema, {}) },
+            }),
+          },
           minItems: 0,
           maxItems: 3,
           addLabel: "Add slot",
